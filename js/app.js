@@ -247,25 +247,48 @@
       var count = 0;
       var total = 0;
 
-      printString = '<h3 style="text-align: center">Papa Satay</h3>';
-      printString += '<table style="width: 100%">';
-      printString += '<tr><th width="60%" style="text-align: left">Item Name</th><th width="10%">Quantity</th><th width="30%" style="text-align: right">Price</th></tr>';
+      // printString = '<h3 style="text-align: center">Papa Satay</h3>';
+      // printString += '<table style="width: 100%">';
+      // printString += '<tr><th width="60%" style="text-align: left">Item Name</th><th width="10%">Quantity</th><th width="30%" style="text-align: right">Price</th></tr>';
+      //
+      // angular.forEach(items, function(item){
+      //   printString += '<tr><td>' + item.name + '</td>';
+      //   printString += '<td style="text-align: center">' + item.quantity + '</td>';
+      //   printString += '<td style="text-align: right">$' + item.price + '</td></tr>';
+      // });
+      // printString += '</table>';
+      // console.log(printString);
+      // var esc_pos = '';
+      // var data = [
+      //   {type: 'html',format: 'plain',data: printString},
+      //   '\x1B\x69',
+      //   '\x10\x14\x01\x00\x05'
+      // ];
+      // console.log(data);
+      printString += '\x1B\x40';
+      printString += '\x1B\x61\x31';
+      printString += '\x1B\x45\x0D';
+      printString += 'Papa Satay\x0A';
+      printString += '\x1B\x45\x0A';
+      printString += '22 Allen Street, Te Aro, Wellington\x0A';
+      printString += '\x0A';
+      printString += 'July 23, 2017\x0A';
+      printString += '\x0A';
+      printString += 'GST No: 119-960-851';
+      printString += '\x0A\x0A';
+      printString += '\x1B\x61\x30';
 
-      angular.forEach(items, function(item){
-        printString += '<tr><td>' + item.name + '</td>';
-        printString += '<td style="text-align: center">' + item.quantity + '</td>';
-        printString += '<td style="text-align: right">$' + item.price + '</td></tr>';
+      angular.foreach(items, function(item){
+        printString += item.name + '\x09' + item.quantity + '\x09' + item.price + '\x0A';
+        total += item.price;
       });
-      printString += '</table>';
-      console.log(printString);
-      var esc_pos = '';
-      var data = [
-        {type: 'html',format: 'plain',data: printString},
-        '\x1B\x69',
-        '\x10\x14\x01\x00\x05'
-      ];
-      console.log(data);
-      //printerPrint(data);
+
+      printString += 'Total: \x09' + total;
+      printString += '\x0A\x0A\x0A\x0A';
+      printString += '\x1B\x69';
+      printString += '\x10\x14\x01\x00\x05';
+      printerPrint(printString);
+
     }
   }]);
 
